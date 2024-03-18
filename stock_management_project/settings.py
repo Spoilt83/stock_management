@@ -56,7 +56,7 @@ ROOT_URLCONF = 'stock_management_project.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': ['stock/templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [

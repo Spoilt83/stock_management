@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block title %} Stock Management {% endblock %}
+
+{% block content %} 
+
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div
+            class="h-100 p-5 text-white bg-primary border rounded-3"
+        >
+            <h2>Welcome</h2>
+            <h3>Stock Management</h3>
+            <p>
+                Welcome to the stock management system. 
+            </p>
+            <a name="" id="" class="btn btn-success " href="{% url 'list' %}">
+                Start
+            </a>
+        </div>
+    </div>
+
+</div>
+
+{% endblock %}
