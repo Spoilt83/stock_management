@@ -20,7 +20,7 @@ def verify_product_expiry():
             send_mail(
                 'Expiration Alert',
                 f'Your product {product["product_name"]} expires in {days_to_expiration} days.',
-                'marvinsolano83@gmail.com',
-                ['marvinsolano83@hotmail.com'],  
+                'emisor@gmail.com', # Correo desde donde se envia la alerta
+                ['receptor83@gmail.com'], # Correo al que se envia la alerta
                 fail_silently=False,
             )
