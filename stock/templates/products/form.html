@@ -1,8 +1,30 @@
-<form enctype="application/x-www-form-urlencoded" method="post" action="{{ action }}">
-    <div class="form-group">
-        <label for="">Name</label>
-        <input type="text" class="form-control" id="" name="" value="{{ product.name }}">
-    </div>
+<form enctype="application/x-www-form-urlencoded" method="post">
+    {% csrf_token %}
     
-    <button type="submit" class="btn btn-primary">Submit</button>
+    {% for field in form %}
+        <div class="form-group mt-4">
+            <label for="">{{ field.label }}:</label>
+
+            <input 
+            type="{{ field.field.widget.input_type}}" 
+            class="form-control" 
+            id="" 
+            name="{{ field.name }}" 
+            value="{{ field.value | default:'' }}">
+            
+
+        </div>
+        <div class="col-12 help-text">{{ field.errors }}</div>
+    {% endfor %}
+    
+    <input
+    name=""
+    id=""
+    class="btn btn-success mt-4"
+    type="submit"
+    value="Send form"
+    />
+
 </form>
+
+

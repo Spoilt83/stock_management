@@ -1,10 +1,16 @@
 from rest_framework import serializers
+from django.contrib.auth.models import User
 from datetime import datetime
 from .models import Product
+from django.contrib.auth import authenticate
 
+class UserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ['id', 'username', 'password']
 
 class ProductSerializer(serializers.ModelSerializer):
-    days_to_expiration = serializers.SerializerMethodField(method_name='get_days_to_expiration') 
+    days_to_expiration = serializers.SerializerMethodField(method_name='get_days_to_expiration', read_only=True) 
 
     def validate(self, attrs):
         if(attrs['product_quantity']<=0):
@@ -15,7 +21,7 @@ class ProductSerializer(serializers.ModelSerializer):
     
     class Meta:
         model = Product
-        fields = ['product_id', 'product_name', 'product_description', 'product_quantity', 'product_expiration_date', 'days_to_expiration']
+        fields = ['id', 'product_name', 'product_description', 'product_quantity', 'product_expiration_date', 'days_to_expiration']
 
     def get_days_to_expiration(self, product):
         current_date = datetime.now().date()

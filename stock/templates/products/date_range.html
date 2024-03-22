@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+
+{% block title %} Stock Management {% endblock %}
+
+{% block content %} 
+
+<div class="card">
+    <div class="card-header d-flex justify-content-end">
+        <a name="" id="" class="btn btn-warning btn-sm" href="{% url 'list' %}">
+            Back
+        </a> 
+    </div>
+    <div class="card-body">
+        <h4 class="card-title">Products close to expiration</h4>
+        <div
+            class="table-responsive"
+        >
+            <table
+                class="table table-primary"
+            >
+                <thead>
+                    <tr>
+                        <th scope="col">Name</th>
+                        <th scope="col">Description</th>
+                        <th scope="col">Quantity</th>
+                        <th scope="col">Expiration Date</th>
+                        <th scope="col">Days to Expire</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for product in products %}
+                    <tr class="">
+                        <td scope="row">{{ product.product_name }}</td>
+                        <td>{{ product.product_description }}</td>
+                        <td>{{ product.product_quantity }}</td>
+                        <td>{{ product.product_expiration_date }}</td>
+                        <td>{{ product.days_to_expiration }}</td>
+                    </tr>
+                    {% endfor %}
+
+        
+                </tbody>
+            </table>
+        </div>
+        
+    </div>
+    <div class="card-footer text-muted"></div>
+</div>
+
+
+{% endblock %}

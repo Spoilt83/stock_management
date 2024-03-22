@@ -5,12 +5,22 @@
 {% block content %} 
 
 <div class="card">
-    <div class="card-header">
-        <a name="" id="" class="btn btn-success btn-sm" href="{% url 'create' %}">
+    <div class="card-header d-flex justify-content-between align-items-center">
+        <a name="" id="" class="btn btn-success btn-sm"  href="{% url 'create' %}">
             Create Product
-        </a>
-            
+        </a>      
+        <!-- <a name="" id="" class="btn btn-warning btn-sm" href="{% url 'date_range' %}">
+            Consult by Range
+        </a>   -->
+        <form action="{% url 'date_range' %}" method="GET">
+            <label for="start_date">Start Date:</label>
+            <input type="date" id="start_date" name="start_date">
         
+            <label for="end_date">End Date:</label>
+            <input type="date" id="end_date" name="end_date">
+        
+            <button type="submit" class="btn btn-warning btn-sm">Consult by Range</button>
+        </form>
         
     </div>
     <div class="card-body">
@@ -35,16 +45,16 @@
                 <tbody>
                     {% for product in products %}
                     <tr class="">
-                        <td scope="row">{{ product.product_id }}</td>
+                        <td scope="row">{{ product.id }}</td>
                         <td>{{ product.product_name }}</td>
                         <td>{{ product.product_description }}</td>
                         <td>{{ product.product_quantity }}</td>
                         <td>{{ product.product_expiration_date }}</td>
                         <td>{{ product.days_to_expiration }}</td>
                         <td> 
-                            <a name="" id="" class="btn btn-info" href="{% url 'update' %}" role="button">Update</a>
+                            <a name="" id="" class="btn btn-info" href="{% url 'update' product.id %}" role="button">Update</a>
                           
-                            <a name="" id="" class="btn btn-danger" href="{% url 'delete' %}" role="button">Delete</a>
+                            <a name="" id="" class="btn btn-danger" href="{% url 'delete' product.id %}" role="button">Delete</a>
                         </td>
                     </tr>
                     {% endfor %}

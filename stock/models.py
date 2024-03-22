@@ -2,11 +2,11 @@ from django.db import models
 
 # Create your models here.
 class Product(models.Model):
-    product_id = models.AutoField(primary_key=True)
-    product_name = models.CharField(max_length=50)
-    product_description = models.TextField()
-    product_quantity = models.IntegerField()
-    product_expiration_date = models.DateField() 
+    id = models.AutoField(primary_key=True)
+    product_name = models.CharField(max_length=100, verbose_name="Name")
+    product_description = models.TextField(verbose_name="Description")
+    product_quantity = models.IntegerField(verbose_name="Quantity")
+    product_expiration_date = models.DateField(verbose_name="Date of Expiration") 
 
     class Meta:
         indexes = [
