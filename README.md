@@ -7,7 +7,6 @@ Aplicación en Django para gestionar un inventario de productos con fecha de cad
 
 - Python (3.12.1)
 - Django (5.0.2)
-- Insomnia
 
 
 Para implementación de cronjob debemos instalar Erlang y RabbitMQ (En este orden)
@@ -57,28 +56,24 @@ https://www.rabbitmq.com/docs/install-windows#installer
     python manage.py runserver
     ```
 
-7. Abre tu navegador web y ve a http://localhost:8000/ para ver las diferentes rutas de la aplicación.
+7. Abre tu navegador web y ve a http://localhost:8000/products/login para interactuar con la aplicación.
 
-8. Abre tu navegador web y ve a http://localhost:8000/admin.   
+    username: admin
+
+    password: admin
+
+
+8. (opcional) Abre tu navegador web y ve a http://localhost:8000/admin.   
      - Se solicitara username y password: (introduce admin para ambos campos)
      - Puedes agregar, consultar, actualizar y eliminar desde aquí.
     
-9. Uso de Insomnia para testear la API
 
-    Probar las siguientes rutas:
-    - http://127.0.0.1:8000/products/login
-      crear un Json para enviar username y password:
-
-      {
-        "username": "admin",
-        "password": "admin"
-      }
-
-      una vez logueado se renderiza una interzas de usario para uso a traves del navegador.
 
 ## Estructura del Proyecto
 
 - El proyecto se encuntra conformado por 1 modelo para representar los datos de productos. 
+
+- Se configuro un serializer con 2 campos adicionales para contar los días de expiración y manejar la alertas. 
 
 - Támbien se crearon templates para representar los datos del modelo al usuario.
 
@@ -93,14 +88,22 @@ https://www.rabbitmq.com/docs/install-windows#installer
         - borrar un producto
 - Las distintas rutas implementadas fueron configurdas mediante el archivo urls.py
 
-- cronjob que se ejecuta a la media noche de cada dia para enviar notificaciones de alerttas por correo de los productos cerca de caducar
+- cronjob que se ejecuta a la media noche de cada dia para enviar notificaciones de alertas por correo de los productos cerca de caducar. En la linea de comandos correr la siguiente línea para iniciar el programa Celery en modo de planificación.
 
-- Enn el archivo task de la carpeta stock, se encuentran los comentario
+        celery -A stock_management_project beat -l info
+
+- En el archivo task de la carpeta stock, se encuentran los comentario
 
     - Correo desde donde se envia la alerta
     - Correo al que se envia la alerta
 
 Agregar estos correos para enviar y recibir notificaiones.
+
+- Se crearon unos test para probar funcionalidades del modelo. Para probarlo:
+
+    En la linea de comandos correr la siguiente linea:
+
+      py manage.py test  
     
 
 
