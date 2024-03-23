@@ -39,6 +39,7 @@
                         <th scope="col">Quantity</th>
                         <th scope="col">Expiration Date</th>
                         <th scope="col">Days to Expire</th>
+                        <th scope="col">Alert</th>
                         <th scope="col">Actions</th>
                     </tr>
                 </thead>
@@ -51,6 +52,7 @@
                         <td>{{ product.product_quantity }}</td>
                         <td>{{ product.product_expiration_date }}</td>
                         <td>{{ product.days_to_expiration }}</td>
+                        <td>{{ product.alert }}</td>
                         <td> 
                             <a name="" id="" class="btn btn-info" href="{% url 'update' product.id %}" role="button">Update</a>
                           

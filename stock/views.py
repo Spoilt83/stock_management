@@ -1,10 +1,9 @@
 """
 This module contains the viewsets for the Product model.
 """
-
+from django.db.models import Case, When, F, Value, IntegerField
 from datetime import datetime, timedelta, date
 from rest_framework import status
-from rest_framework.response import Response
 from rest_framework.renderers import TemplateHTMLRenderer
 from rest_framework.decorators import api_view, renderer_classes, authentication_classes, permission_classes
 from rest_framework.permissions import IsAuthenticated
@@ -15,29 +14,39 @@ from django.shortcuts import render, redirect, get_object_or_404
 from .models import Product
 from .serializer import ProductSerializer, UserSerializer
 from .forms import ProductForm
-# from django.contrib.auth import authenticate
+
+
+@api_view(['GET', 'POST'])
+@renderer_classes([TemplateHTMLRenderer])
+def login(request):
+    """
+    Login for user.
+    """
+    return render(request, 'pages/login.html')
+
 
 
 
 @api_view(['GET', 'POST'])
-# @renderer_classes([TemplateHTMLRenderer])
-def login(request):
+def user_authentication(request):
     """
-    Valida un usuario.
+    Validate credentials for user.
     """
     user = get_object_or_404(User, username=request.data['username'])
 
     if not user.check_password(request.data['password']):
-        return Response({'error': 'Invalid credentials.'}, status=status.HTTP_401_UNAUTHORIZED)
-    
+        return render(request, 'pages/login.html')
+        #return redirect('login')
+
     token, created = Token.objects.get_or_create(user=user)
     serializer = UserSerializer(instance=user)
 
     return render(request, 'pages/home.html', {'user': serializer.data, 'token': token.key})
 
 
-
 @api_view(['GET', 'POST']) 
+@authentication_classes([TokenAuthentication])
+@permission_classes([IsAuthenticated])
 @renderer_classes ([TemplateHTMLRenderer])
 def home(request):
     """
@@ -46,8 +55,6 @@ def home(request):
     return render(request, template_name='pages/home.html')
 
 @api_view(['GET', 'POST']) 
-#@authentication_classes([TokenAuthentication])
-#@permission_classes([IsAuthenticated])
 @renderer_classes ([TemplateHTMLRenderer])
 def list(request):
     """

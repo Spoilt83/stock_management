@@ -25,6 +25,7 @@
                         <th scope="col">Quantity</th>
                         <th scope="col">Expiration Date</th>
                         <th scope="col">Days to Expire</th>
+                        <th scope="col">Alert</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -35,6 +36,7 @@
                         <td>{{ product.product_quantity }}</td>
                         <td>{{ product.product_expiration_date }}</td>
                         <td>{{ product.days_to_expiration }}</td>
+                        <td>{{ product.alert }}</td>
                     </tr>
                     {% endfor %}
 
